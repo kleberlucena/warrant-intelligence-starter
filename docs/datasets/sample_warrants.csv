@@ -1,0 +1,4 @@
+number,court,status,name,mother_name,national_id,birth_date,sex
+123,Central Court,ATIVO,JOAO SILVA,MARIA SILVA,11122233344,1990-01-10,M
+456,North Court,ATIVO,ANA SOUZA,MARIA SOUZA,55566677788,1992-03-20,F
+789,West Court,ARQUIVADO,JOSE LIMA,ANA LIMA,,1988-07-05,M

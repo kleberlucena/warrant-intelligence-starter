@@ -1,0 +1,44 @@
+[project]
+name = "warrant-intelligence-starter"
+version = "0.1.0"
+description = "Django + DRF + ETL + GIS starter focused on public-safety/‘warrants’ datasets"
+authors = [{name="You", email="you@example.com"}]
+requires-python = ">=3.11"
+dependencies = [
+  "Django>=5.0",
+  "djangorestframework>=3.15",
+  "dj-database-url>=2.2",
+  "psycopg2-binary>=2.9",
+  "pandas>=2.2",
+  "python-dateutil>=2.9",
+  "unidecode>=1.3",
+  "factory_boy>=3.3",
+  "pytest>=8.3",
+  "pytest-django>=4.9",
+  "ruff>=0.6",
+  "black>=24.8",
+  "isort>=5.13",
+  "mypy>=1.11"
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.11"
+packages = ["src"]
+ignore_missing_imports = true

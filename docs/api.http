@@ -1,0 +1,14 @@
+### List People
+GET http://localhost:8000/api/people/
+
+### Create Person
+POST http://localhost:8000/api/people/
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "mother_name": "Jane Doe",
+  "national_id": "12345678900",
+  "birth_date": "1990-05-10",
+  "sex": "M"
+}
