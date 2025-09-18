@@ -1,0 +1,12 @@
+Django==4.2.*
+djangorestframework==3.14.*
+# Driver Postgres (recomendo v3)
+psycopg[binary]==3.1.*
+# Servidor WSGI
+gunicorn==21.2.*
+# (opcional) whitenoise p/ estáticos simples
+whitenoise==6.6.*
+# (se usar pandas/numpy no projeto)
+numpy==1.24.4
+pandas==1.5.3
+dj-database-url==2.2.*

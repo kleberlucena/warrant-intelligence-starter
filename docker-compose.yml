@@ -1,21 +1,43 @@
-version: "3.9"
 services:
-  web:
-    build: .
-    command: bash -lc "python src/manage.py runserver 0.0.0.0:8000"
-    ports: ["8000:8000"]
-    env_file: .env
-    volumes:
-      - .:/app
-    depends_on: [db]
   db:
     image: postgres:16
+    container_name: pg-wis
+    restart: unless-stopped
     environment:
-      POSTGRES_DB: wis
-      POSTGRES_USER: wis
-      POSTGRES_PASSWORD: wis
-    ports: ["5432:5432"]
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      TZ: ${TZ}
+    ports:
+      - "${POSTGRES_HOST_PORT:-5433}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  pgadmin:
+    image: dpage/pgadmin4:8
+    container_name: pgadmin-wis
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      TZ: ${TZ}
+    ports:
+      - "${PGADMIN_HOST_PORT:-5050}:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+
+networks:
+  default:
+    name: wis-net
+
 volumes:
   pgdata:
+  pgadmin:
