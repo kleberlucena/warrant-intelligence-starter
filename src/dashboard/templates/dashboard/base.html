@@ -1,0 +1,92 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}WIS{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- AdminLTE 3 + Bootstrap 4 + FontAwesome (CDN) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <ul class="navbar-nav">
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{% url 'dashboard:home' %}" class="nav-link">Início</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item"><span class="nav-link text-muted">WIS</span></li>
+    </ul>
+    
+  </nav>
+
+  <!-- Sidebar -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="{% url 'dashboard:home' %}" class="brand-link">
+      <span class="brand-text font-weight-light">WIS</span>
+    </a>
+    <div class="sidebar">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview">
+          <li class="nav-item">
+            <a href="{% url 'dashboard:home' %}" class="nav-link">
+              <i class="nav-icon fas fa-home"></i><p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'dashboard:mapa' %}" class="nav-link">
+              <i class="nav-icon fas fa-map"></i><p>Mapa</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'dashboard:people-list' %}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i><p>Pessoas</p>
+            </a>
+          </li>
+          <li class="nav-item">
+          <a href="{% url 'dashboard:importar' %}" class="nav-link">
+            <i class="nav-icon fas fa-file-upload"></i><p>Importar dados</p>
+          </a>
+           </li>
+
+
+
+
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Content -->
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <h1 class="m-0">{% block header %}{{ page_title|default:'Dashboard' }}{% endblock %}</h1>
+      </div>
+    </div>
+
+    <section class="content">
+      <div class="container-fluid">
+        {% block content %}{% endblock %}
+      </div>
+    </section>
+  </div>
+
+  <footer class="main-footer small">
+    <strong>WIS</strong>
+    <span class="ml-2 text-muted">v0.1</span>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

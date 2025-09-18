@@ -93,13 +93,14 @@ USE_TZ = True
 # --- Arquivos estáticos ---
 # Com BASE_DIR na raiz do projeto:
 #   collectstatic → /home/projetos/WIS/staticfiles
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 # Se tiver assets locais em desenvolvimento, você pode adicionar:
 # STATICFILES_DIRS = [BASE_DIR / "static"]
 
+
 # --- Arquivos de mídia (opcional) ---
-MEDIA_URL = "media/"
+MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 # --- Outras configs ---

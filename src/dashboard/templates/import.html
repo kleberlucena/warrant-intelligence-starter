@@ -1,0 +1,101 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block title %}Importar Dados – WIS{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <div class="card card-primary">
+      <div class="card-header"><h3 class="card-title">Importar CSV</h3></div>
+      <form method="post" enctype="multipart/form-data">
+        <div class="card-body">
+          {% csrf_token %}
+          <div class="form-group">
+            <label>{{ form.file.label }}</label>
+            {{ form.file }}
+            <small class="form-text text-muted">{{ form.file.help_text }}</small>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label>{{ form.sep.label }}</label>
+              {{ form.sep }}
+            </div>
+            <div class="form-group col-md-5">
+              <label>{{ form.encoding.label }}</label>
+              {{ form.encoding }}
+            </div>
+            <div class="form-group col-md-4">
+              <label>{{ form.preview_rows.label }}</label>
+              {{ form.preview_rows }}
+            </div>
+          </div>
+          <div class="form-group form-check">
+            {{ form.dry_run }} <label class="form-check-label" for="{{ form.dry_run.id_for_label }}">{{ form.dry_run.label }}</label>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-primary">Enviar e Processar</button>
+        </div>
+      </form>
+    </div>
+
+    {% if summary %}
+    <div class="card card-success">
+      <div class="card-header"><h3 class="card-title">Resumo</h3></div>
+      <div class="card-body">
+        <ul class="list-unstyled">
+          <li><b>Linhas no CSV:</b> {{ summary.rows }}</li>
+          <li><b>Pessoas criadas:</b> {{ summary.people_created }}</li>
+          <li><b>Pessoas atualizadas:</b> {{ summary.people_updated }}</li>
+          <li><b>Mandados criados:</b> {{ summary.warrants_created }}</li>
+          <li><b>Mandados atualizados:</b> {{ summary.warrants_updated }}</li>
+          <li><b>Dry-run:</b> {{ summary.dry_run }}</li>
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="col-md-4">
+    <div class="card card-outline card-secondary">
+      <div class="card-header"><h3 class="card-title">Formato esperado</h3></div>
+      <div class="card-body">
+        <p>O CSV deve conter o cabeçalho (case-insensitive):</p>
+<pre class="mb-2"><code>national_id,name,mother_name,birth_date,number,status,issued_at,court,lat,lon</code></pre>
+        <p class="mb-1">Exemplo:</p>
+<pre><code>12345678900,JOAO DA SILVA,MARIA DA SILVA,1985-03-10,0001,ATIVO,2024-02-01,1ª Vara,-7.115,-34.863
+,,MARTA,1990-05-20,0002,ATIVO,2023-11-10,2ª Vara,-7.12,-34.85
+</code></pre>
+        <p class="text-muted">Use “Apenas simular” para checar o resumo sem gravar.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if preview %}
+<div class="card">
+  <div class="card-header"><h3 class="card-title">Pré-visualização ({{ preview|length }} linhas)</h3></div>
+  <div class="card-body table-responsive p-0">
+    <table class="table table-hover text-nowrap">
+      <thead>
+        <tr>
+          {% for k in preview.0.keys %}
+            <th>{{ k }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in preview %}
+          <tr>
+            {% for v in row.values %}
+              <td>{{ v }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

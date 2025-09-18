@@ -5,7 +5,7 @@ description = "Django + DRF + ETL + GIS starter focused on public-safety/‘warr
 authors = [{name="You", email="you@example.com"}]
 requires-python = ">=3.11"
 dependencies = [
-  "Django>=5.0",
+  "Django>=4.0",
   "djangorestframework>=3.15",
   "dj-database-url>=2.2",
   "psycopg2-binary>=2.9",
